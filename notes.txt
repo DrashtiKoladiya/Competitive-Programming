@@ -1,0 +1,104 @@
+// v =  vector< vector<ll> >(n+1);
+// v.assign(n+1,vector<ll>()); 
+// number of ways to partiation an array so that all of it's subarray's size remains odd = fibbonacci(size(array))
+
+//////////////////////////////////////////////////////////////////////////////////
+
+/*
+    If we want to find the number of pairs whose 
+    lcm = x and gcd = y
+    and if the number of prime factors of (x/y) = n
+    then the number of pairs with lcm=x and gcd=y is 2^n
+*/
+
+vector<int> v1(N),NumOfPrimeFactors(N,0),power(31);
+void pre()
+{
+    for(int i=1;i<N;i++) v1[i]=i,NumOfPrimeFactors[i]=0;
+
+    for(int i=2;i<N;i++)
+    {
+        if(v1[i]==i)
+        {
+            for(int j=i;j<N;j+= i)
+            {
+                NumOfPrimeFactors[j]++;
+                v1[j]=min(v1[j],i);
+            }
+        }
+    }
+}
+
+void pre1()
+{
+    power[0]=1;
+    for(int i=1;i<31;i++) power[i] = power[i-1]*2;
+}
+
+////////////////////////////////////////////////////////////////////////////////////
+
+
+//freopen("input.txt","r",stdin);
+//freopen("output.txt","w",stdout);
+
+/*
+    string ma always if we want to add sometinh at the end then do
+    tmp+= s;  //this will work faster as it simply start appending from the end of the tmp
+    not tmp = tmp+s; //this given time limit eceed since it travers tmp again
+*/
+
+
+/*
+    whenever passing vector,set or anything pass by reference *vector<int>& v*
+    not pass by value *vector<int> v*
+    this will affect the time complecity a lot.
+*/
+
+bool isPrime(ll n){
+    if (n <= 1)  return false;
+    if (n <= 3)  return true;
+    if (n%2 == 0 || n%3 == 0) return false;
+    ll p=sqrt(n);
+    for(int i=5;i<=p;i+=6)
+        if (n%i == 0 || n%(i+2) == 0)
+            return false;
+    return true;
+}
+
+int power(int a , int b)
+{
+    int result = 1;
+    while(b > 0)
+    {
+        if(b%2 == 1) result = (result * a);
+        a = (a * a);
+        b = b/2;
+    }
+    return result;
+}
+
+
+int powerMOD(int a, int b,int mod)
+{
+    int result = 1;
+    while(b > 0)
+    {
+        if(b%2 == 1) result = (result * a)%mod;
+        a = (a * a)%mod;
+        b = b/2;
+    }
+    return result%mod;
+}
+
+
+int isPalindrome(int l,int r,string s)
+{
+    while(l<=r)
+    {
+        if(s[l]!=s[r]) return 0;
+        l++;
+        r--;
+    }
+    return 1;
+}
+
