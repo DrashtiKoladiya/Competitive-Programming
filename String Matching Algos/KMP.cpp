@@ -76,5 +76,5 @@ int main()
     FindPatterns(s, p);
 }
 
-// time complexity: O(n)
-// space complexity: O(n);
+// time complexity: O(n+m)
+// space complexity: O(m)
